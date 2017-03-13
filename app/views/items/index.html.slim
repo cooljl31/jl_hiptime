@@ -1,3 +1,4 @@
 .col-md-8.col-offset-2
-  h1 New Todo Item
-  = render 'form'
+  - @items.each do |item|
+    h2= link_to item.title, item_path(item)
+    p= item.description

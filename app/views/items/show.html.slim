@@ -1,0 +1,6 @@
+.col-md-10.col-offset-1
+    h2= @item.title
+    p= @item.description
+= link_to 'back', root_path
+= link_to 'Edit', edit_item_path(@item)
+= link_to 'Trash', item_path, method: :delete, data: { confirm: 'Are you sure?' }

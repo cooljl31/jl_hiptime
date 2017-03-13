@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title Hiptime
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        .navbar-brand
+          = link_to 'Hiptime', root_path
+        .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+          - if user_signed_in?
+            ul.nav.navbar-nav
+              li= link_to 'New Item', new_item_path
+            ul.nav.navbar-nav.navbar-right
+              li= link_to 'Sign Out', destroy_user_session_path, :method => :delete,  class: 'pull-right'
+          - else
+            ul.nav.navbar-nav.navbar-right
+              li= link_to 'LogIn', user_session_path
+              li= link_to 'Sign Up', new_user_registration_path
+
+    - flash.each do |name, msg|
+      = content_tag :div, msg, class: "alert-#{name}"
+
+  .container
+    = yield

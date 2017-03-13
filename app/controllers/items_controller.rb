@@ -1,15 +1,16 @@
 class ItemsController < ApplicationController
-  before_action :find_items, onliy: [:create, :update, :edit, :destroy]
+  before_action :find_item, only: [:show, :update, :edit, :destroy]
+
   def index
     @items = Item.all.order('created_at DESC')
   end
 
   def new
-    @item = Item.new
+    @item = current_user.items.build
   end
 
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items.build(item_params)
     if @item.save
       redirect_to root_path
     else
@@ -24,14 +25,21 @@ class ItemsController < ApplicationController
   end
 
   def update
+    if @item.update(item_params)
+      redirect_to(item_url)
+    else
+      render(:edit)
+    end
   end
 
   def destroy
+    @item.destroy
+    redirect_to root_path
   end
 
   private
 
-  def find_items
+  def find_item
     @item = Item.find(params[:id])
   end
 
