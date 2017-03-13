@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :update, :edit, :destroy]
 
   def index
-    @items = Item.all.order('created_at DESC')
+    @items = Item.user_login(current_user)
   end
 
   def new

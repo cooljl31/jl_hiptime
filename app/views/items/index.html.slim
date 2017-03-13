@@ -2,3 +2,5 @@
   - @items.each do |item|
     h2= link_to item.title, item_path(item)
     p= item.description
+- unless user_signed_in?
+  = render 'welcome_page'
