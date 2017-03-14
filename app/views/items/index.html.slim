@@ -4,26 +4,26 @@
       - if item.completed?
         .row.item
           .col-md-2
-            p= link_to complete_item_path(item), method: :path do
+            p= link_to complete_item_path(item), method: :patch do
               i.fa.fa-check.fa-lg
 
           .col-md-2
-            p= link_to complete_item_path(item), method: :path do
+            p= link_to complete_item_path(item), method: :delete do
               i.fa.fa-trash.fa-lg
 
           .col-md-8
             h2
-              strick= link_to item.title, item_path(item), style: { opacity: 0.5 }
+              strike= link_to item.title, item_path(item), style:  'opacity: 0.5'
             p= item.description
-            p Completed
-            |
-             = time_ago_in_words(item.complete_ap)
-            |  ago
+            p
+            | Completed
+            =<> time_ago_in_words(item.completed_at)
+            | ago
 
       - else
         .row.item
           .col-md-2
-            p= link_to complete_item_path(item), method: :path do
+            p= link_to complete_item_path(item), method: :patch do
               i.fa.fa-check.fa-lg
           .col-md-8
             h2= link_to item.title, item, class: 'item-title'
@@ -31,8 +31,8 @@
               = item.description
             p.time-created-at.item-sub-title
               | Created
-              =< time_ago_in_words(item.created_at)
-              |  ago
+              =<> time_ago_in_words(item.created_at)
+              | ago
 
           .col-md-2
             p= link_to item, method: :delete, data: {comfirm: ' Are you sure?'} do
